@@ -19,10 +19,18 @@ h2{font-size:15px;margin:0 0 10px}
 .seg{display:inline-flex;background:#f3f4f6;border-radius:10px;padding:3px}
 .seg button{border:0;background:none;padding:8px 18px;border-radius:8px;font:inherit;font-size:15px;color:var(--mute);cursor:pointer}
 .seg button.on{background:#fff;color:var(--ink);font-weight:600;box-shadow:0 1px 3px rgba(0,0,0,.12)}
-.days{display:flex;gap:8px;overflow-x:auto;padding:2px 2px 8px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch}
-.day{flex:none;scroll-snap-align:start;border:1px solid var(--line);background:#fff;border-radius:12px;padding:8px 0;width:64px;text-align:center;cursor:pointer;font:inherit}
-.day .w{font-size:12px;color:var(--mute)}.day .d{font-size:19px;font-weight:650}.day .m{font-size:12px;color:var(--mute)}
-.day.on{border-color:var(--acc);background:var(--accbg)}.day.on .d{color:var(--acc)}
+.cal-h{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
+.cal-h .t{font-weight:650;font-size:15px}
+.nav{border:1px solid var(--line);background:#fff;border-radius:8px;width:34px;height:32px;font:inherit;font-size:18px;color:var(--acc);cursor:pointer}
+.nav:disabled{opacity:.3;cursor:default}
+.cal{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-bottom:6px}
+.cal .wd{text-align:center;font-size:12px;color:var(--mute);padding:2px 0}
+.cd{aspect-ratio:1/1;max-height:48px;border:0;border-radius:10px;background:none;font:inherit;font-size:15px;color:#c0c4cc;display:flex;align-items:center;justify-content:center;position:relative;padding:0}
+.cd.av{background:var(--accbg);color:var(--acc);font-weight:650;cursor:pointer}
+.cd.av:hover{background:#d2e3fc}
+.cd.on{background:var(--acc);color:#fff}
+.cd.today::after{content:"";position:absolute;bottom:4px;left:50%;width:5px;height:5px;margin-left:-2.5px;border-radius:50%;background:var(--ok)}
+.cd.today{outline:1px solid #9ca3af;outline-offset:-1px}
 .slots{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px}
 .slot{border:1px solid #c7d7f7;background:#fff;color:var(--acc);border-radius:10px;padding:10px 8px;font:inherit;font-weight:600;cursor:pointer;text-align:center}
 .slot small{display:block;font-weight:400;color:var(--mute);font-size:12px}
@@ -56,7 +64,8 @@ textarea{min-height:84px;resize:vertical}
     </div>
     <div class="card">
       <h2>Choose a day</h2>
-      <div class="days" id="days"></div>
+      <div class="cal-h"><button type="button" class="nav" id="prev" aria-label="Previous month">‹</button><div class="t" id="mtitle"></div><button type="button" class="nav" id="next" aria-label="Next month">›</button></div>
+      <div class="cal" id="days"></div>
       <h2 style="margin-top:12px" id="slotsTitle">Available times</h2>
       <div class="slots" id="slots"></div>
       <div class="sub hidden" id="none">No times available for this length. Please check back later.</div>
@@ -103,7 +112,7 @@ const params=new URLSearchParams(location.search);
 let endpoint=B.endpoint||'';
 if(/^(127\.0\.0\.1|localhost)$/.test(location.hostname)&&params.get('endpoint'))endpoint=params.get('endpoint');
 const taken=JSON.parse(localStorage.getItem('bk.taken')||'[]');
-let dur=B.durations[0]||30,selDay=null,selSlot=null;
+let dur=B.durations[0]||30,selDay=null,selSlot=null,viewM=null;
 
 function slotsFor(d){
   const out=[],step=30*60000,need=d*60000,earliest=Date.now()+(B.minNoticeHours||12)*3600000;
@@ -119,10 +128,25 @@ function render(){
   $('tzinfo').textContent=sameTz()?'Times shown in Athens time ('+tzName(TZ,n)+'), which matches your time zone.':'Times shown in Athens time ('+tzName(TZ,n)+') with your local time ('+LTZ.replace(/_/g,' ')+') underneath.';
   const all=slotsFor(dur);const byDay={};all.forEach(s=>{(byDay[dayKey(s[0])]=byDay[dayKey(s[0])]||[]).push(s);});
   const keys=Object.keys(byDay).sort();
-  if(!keys.includes(selDay))selDay=keys[0]||null;
-  $('days').innerHTML='';
-  keys.forEach(k=>{const ms=byDay[k][0][0];const p=partsD(ms,TZ);const b=document.createElement('button');b.type='button';b.className='day'+(k===selDay?' on':'');
-    b.innerHTML='<div class="w">'+p.weekday+'</div><div class="d">'+p.day+'</div><div class="m">'+p.month+'</div>';b.onclick=()=>{selDay=k;selSlot=null;render();};$('days').appendChild(b);});
+  if(!keys.includes(selDay)){selDay=keys[0]||null;viewM=null;}
+  const todayK=dayKey(Date.now());
+  const addD=(k,n)=>{const d=new Date(k+'T12:00:00Z');d.setUTCDate(d.getUTCDate()+n);return d.toISOString().slice(0,10);};
+  const lastK=addD(todayK,B.horizonDays||31);
+  const months=[];for(let k=todayK.slice(0,7)+'-01';k<=lastK;){months.push(k.slice(0,7));const d=new Date(k+'T12:00:00Z');d.setUTCMonth(d.getUTCMonth()+1);k=d.toISOString().slice(0,10);}
+  if(!viewM||!months.includes(viewM))viewM=selDay?selDay.slice(0,7):months[0];
+  const mi=months.indexOf(viewM);
+  $('prev').disabled=mi<=0;$('next').disabled=mi>=months.length-1;
+  $('prev').classList.toggle('hidden',months.length<2);$('next').classList.toggle('hidden',months.length<2);
+  $('prev').onclick=()=>{viewM=months[mi-1];render();};$('next').onclick=()=>{viewM=months[mi+1];render();};
+  $('mtitle').textContent=new Intl.DateTimeFormat('en-GB',{month:'long',year:'numeric',timeZone:'UTC'}).format(new Date(viewM+'-15T12:00:00Z'));
+  const g=$('days');g.innerHTML='';
+  ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'].forEach(w=>{const e=document.createElement('div');e.className='wd';e.textContent=w;g.appendChild(e);});
+  const first=new Date(viewM+'-01T12:00:00Z');const lead=(first.getUTCDay()+6)%7;
+  for(let i=0;i<lead;i++)g.appendChild(document.createElement('div'));
+  for(let k=viewM+'-01';k.slice(0,7)===viewM;k=addD(k,1)){const b=document.createElement('button');b.type='button';b.textContent=+k.slice(8);
+    const av=!!byDay[k];b.className='cd'+(av?' av':'')+(k===selDay?' on':'')+(k===todayK?' today':'');
+    if(av){const kk=k;b.onclick=()=>{selDay=kk;selSlot=null;render();};b.setAttribute('aria-label',fmtD(byDay[k][0][0],TZ)+', available');}else b.disabled=true;
+    g.appendChild(b);}
   $('none').classList.toggle('hidden',keys.length>0);
   $('slots').innerHTML='';
   if(selDay){$('slotsTitle').textContent='Available times · '+fmtD(byDay[selDay][0][0],TZ);
