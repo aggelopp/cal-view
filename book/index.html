@@ -139,14 +139,14 @@ function render(){
   $('prev').classList.toggle('hidden',months.length<2);$('next').classList.toggle('hidden',months.length<2);
   $('prev').onclick=()=>{viewM=months[mi-1];render();};$('next').onclick=()=>{viewM=months[mi+1];render();};
   $('mtitle').textContent=new Intl.DateTimeFormat('en-GB',{month:'long',year:'numeric',timeZone:'UTC'}).format(new Date(viewM+'-15T12:00:00Z'));
-  const g=$('days');g.innerHTML='';
-  ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'].forEach(w=>{const e=document.createElement('div');e.className='wd';e.textContent=w;g.appendChild(e);});
+  const grid=$('days');grid.innerHTML='';
+  ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'].forEach(w=>{const e=document.createElement('div');e.className='wd';e.textContent=w;grid.appendChild(e);});
   const first=new Date(viewM+'-01T12:00:00Z');const lead=(first.getUTCDay()+6)%7;
-  for(let i=0;i<lead;i++)g.appendChild(document.createElement('div'));
+  for(let i=0;i<lead;i++)grid.appendChild(document.createElement('div'));
   for(let k=viewM+'-01';k.slice(0,7)===viewM;k=addD(k,1)){const b=document.createElement('button');b.type='button';b.textContent=+k.slice(8);
     const av=!!byDay[k];b.className='cd'+(av?' av':'')+(k===selDay?' on':'')+(k===todayK?' today':'');
     if(av){const kk=k;b.onclick=()=>{selDay=kk;selSlot=null;render();};b.setAttribute('aria-label',fmtD(byDay[k][0][0],TZ)+', available');}else b.disabled=true;
-    g.appendChild(b);}
+    grid.appendChild(b);}
   $('none').classList.toggle('hidden',keys.length>0);
   $('slots').innerHTML='';
   if(selDay){$('slotsTitle').textContent='Available times · '+fmtD(byDay[selDay][0][0],TZ);
