@@ -122,7 +122,7 @@ function slotsFor(d){
   return out;
 }
 function render(){
-  $('dur').innerHTML='';
+  $('dur').innerHTML='';$('dur').parentElement.querySelector('h2').textContent=B.durations.length>1?'Meeting length':'Meeting length: '+B.durations[0]+' min';$('dur').classList.toggle('hidden',B.durations.length<2);
   B.durations.forEach(d=>{const b=document.createElement('button');b.type='button';b.textContent=d+' min';b.className=d===dur?'on':'';b.onclick=()=>{dur=d;selSlot=null;render();};$('dur').appendChild(b);});
   const n=Date.now();
   $('tzinfo').textContent=sameTz()?'Times shown in Athens time ('+tzName(TZ,n)+'), which matches your time zone.':'Times shown in Athens time ('+tzName(TZ,n)+') with your local time ('+LTZ.replace(/_/g,' ')+') underneath.';
