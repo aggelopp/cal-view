@@ -56,6 +56,7 @@ textarea{min-height:84px;resize:vertical}
 .cx-item img{width:170px;height:170px;border-radius:8px;border:1px solid var(--line);image-rendering:pixelated;background:#fff}
 .cx-link{color:var(--acc);font-weight:600;text-decoration:none;overflow-wrap:break-word}.cx-link:hover{text-decoration:underline}
 .cx-btn{display:inline-block;margin-top:4px;background:var(--acc);color:#fff;border-radius:10px;padding:10px 14px;font-weight:600;text-decoration:none}
+.cx.single{grid-template-columns:1fr;max-width:360px;margin:0 auto}
 @media (max-width:560px){.cx{grid-template-columns:1fr}}
 .cx-item h2{font-size:15px}
 </style>
@@ -73,18 +74,13 @@ textarea{min-height:84px;resize:vertical}
   </div>
 
   <div class="card" id="connect">
-    <div class="cx">
+    <div class="cx single">
+      
       <div class="cx-item">
         <h2>LinkedIn</h2>
         <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAArwAAAK8AQAAAAAlwVHuAAADVElEQVR4nO3dTXLjIBCG4a+nssc3yP1vByfoWQjMj7CSyVRSgry9cNmSeMrFpgs1P+b6lkh/vseVgIGBgYGBgYGBgYGBgYGBgYGBgYEl+RFxfkMK+W79aB950cw9rtcVwMDAwMC/B/Ym4vNqMpOCH2U/s4dU8+BFs7W7AhgYGBh4ezjZEfWnFNxzplM72DN7d583+8l/DAwMDAwM/Ol4u77tSnZ85AguU4j6cLrnel0BDAwMDPy74XY4F9zz2G86sPs3+OsBDAwMDAz8tejGeeE0esvjvPJt9sj82oJdAQwMDAy8OdzkvMth2xHlVeejfLxutl5XAAMDAwNvDpecNx2r5bDj7lHKe377oNl6XQEMDAwMvDncrM87Lb4r6/PmDcOwOGFYtbBeVwADAwMDbw43iSr/jH0erHeHJNclw1MLch4wMDAw8N3gMavVXNbuvuL9YC+0i9B9GuQ8YGBgYOC7wedtVEpCqylw2HusTYGhT5VNMlyvK4CBgYGBN4fLHJYyC1NSOxWzrlWok1ZMIUrHh1SaledKrNcVwMDAwMCbw2MlbnjBmaMb7J2ASD0PGBgYGHgBeDxXYXaGwstXnTlqBZB6HjAwMDDwfeHpsQi1YteO3+KkRfcc9TxgYGBg4BXgcoZCTm31BKGUt9U0e+TUZvZ4niokKR+9YGacJQQMDAwMfGf4qp4X2umZL+t5WYlDZW+9rgAGBgYG3hwe314ObznzI1HjCoX2uZoRqecBAwMDA98Xnu65MhvxtbW7eLFRGTkPGBgYGHgFOPVHpNdvySwX8EJ7bPqpbW22elcAAwMDA+8Hd+cq1FMSgkvN6eglvL9WlqM/JgcKrdcVwMDAwMCbw9MCXr0xbxPmbzmp5wEDAwMDLwJ3KUuSktlw7Xo5upnxbhMYGBgYeA04mXV567kMryzXM3vP9Tz3KOXH6yM//o+BgYGBgYE/HW8fP3IU60whli2nk6kW/0whUs8DBgYGBt4ArjuyqN99RXmc1w7x6ir2HbsCGBgYGHhtuBvnhX7OSv1ZDgpypYdOszpDnAz21usKYGBgYODN4at5m7GftBIm69TjhGLeJjAwMDDwLWF7sRzhfyOt1xXAwMDAwMDAwMDAwMDAwMDAwMDAC8F/AbIvM0+LlBGOAAAAAElFTkSuQmCC" alt="QR code: Panagiotis Aggelopoulos on LinkedIn" width="170" height="170">
         <div class="sub">Scan to open the profile</div>
         <a class="cx-link" href="https://www.linkedin.com/in/aggelopoulosp/" target="_blank" rel="noopener">linkedin.com/in/aggelopoulosp</a>
-      </div>
-      <div class="cx-item">
-        <h2>Save contact</h2>
-        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAARQAAAEUAQAAAADCC/TUAAADu0lEQVR42u2aQW4cUQhEUS7A/W/JDcivV4yzieJNBIukbdnj6ZGMoKgq+B397VXxT38mIjIq9SOiK997FVlc3Kwf8f31tz4Tnd35Isl39Qsg8wUVL6R+4SQ3l+MhhChF9WJ4+VCKlK4Xjm4exKM8kKlWaJHvpQrlmyfxpFLzgiIzob9eIH2Sn9a3MJyKRJl5byZ/9wF+wlj+/XXQX7R9Tr8rIwms3evc3M6PIKSK+Zd6HRJqtdg+forObtGfikNunDaYqLbzYwSbboxfdZaYWy8U03a9RDRKBv0l3IgPX/1M0Ov1KliHGlG5F1lTvDI3bveXuEaJAc4dkyC/X7kej3qoIRtyYs1COsTRL8x1/kkavqQP6m/RUQ9RigXW8QMLFnEI0l28suPoC/yI+UL1AS6jppOwff1CTM3G8kD1pabV7rVlPhRahCBxn3iwBG+xdMIE6/VCRlUdfqdAg26E5eIgHlFOGS70GKHYoNU+P4t/kIc2HyNczlPlfr3U1kC3sarCUrnn2zJ/Me8kI5jloiwXKmHBStt8KE0I0eLH1AtQINtI2u53TaMIQzBSwD7tMSM69vVCPQSMwLbKlOPx40C/hBxGHtyP/HINkose29cL848CU9nQL+UJU9YH8+DHpWJcmXlAkKevfX7u+deWMqyPjbxs2b5fJRr3vEf2HFDbLO77wyQiwVkAllKgpfaK+/NXMH0JwuV1GQOZUiUK2o+n2YvBfEypbZNIJB5Yt/1GTor8xVBY+OkxQtt8SERVXgMxW4iuGTQu/A+5wccrR0hFpcmwwPgyniUK3a4VaxeveqHF7oP8QDzlKcf22Ymh8w/4x0sEhlEzIcYVjowT//xrwTszMwOiIsKEbOtXMBVrAvOSl1kww5Y6+mD/Y2+qb3jHi0zi6/15UKhlWG7cBStDyNBquo5nPLyIT0SURFa4aE5T4oCf+7NlRdNzFh6J3O/750r/X+TUC45i8dw+9znwzyx7CrtT7jbvgjr6wK/W1/EXI7MVDC/PEnp/3gHLYTLMMYnebBLU+jzINpO+8glqYON9QHcznxq5UXNWULOhR1W38RP1tZBP+k3Vo92zL+ad+iUNPSe6nJzGuLT186b0iZcXLsFRhrd3PqA7OB9EP2vQPOEhGp0X8xczMua95hyjBuaZN/s6esqHzEAYKb3JTzoGG+j+eGp7IE+uB89LhJerxVbTE4bD2j//muc3XCcMoh+gSGvHyfMJWSNdfnLCWuYnS076Kz4cnXZDHDqxqtrHz//ntf70mZ/wHsJHUx3ShgAAAABJRU5ErkJggg==" alt="QR code: save Panagiotis Aggelopoulos as a phone contact" width="170" height="170">
-        <div class="sub">Scan with your phone camera to add to Contacts (iPhone &amp; Android)</div>
-        <a class="cx-btn" href="data:text/vcard;charset=utf-8,BEGIN%3AVCARD%0D%0AVERSION%3A3.0%0D%0AN%3AAggelopoulos%3BPanagiotis%3B%3B%3B%0D%0AFN%3APanagiotis%20%28Takis%29%20Aggelopoulos%0D%0ATEL%3BTYPE%3DCELL%3A%2B306943071437%0D%0AEMAIL%3BTYPE%3DINTERNET%3Atakis%40angel.software%0D%0AURL%3Ahttps%3A%2F%2Fangel.software%0D%0Aitem1.URL%3Ahttps%3A%2F%2Fwww.linkedin.com%2Fin%2Faggelopoulosp%2F%0D%0Aitem1.X-ABLabel%3ALinkedIn%0D%0AX-SOCIALPROFILE%3BTYPE%3Dlinkedin%3Ahttps%3A%2F%2Fwww.linkedin.com%2Fin%2Faggelopoulosp%2F%0D%0AEND%3AVCARD%0D%0A" download="Panagiotis-Aggelopoulos.vcf" type="text/vcard">Download contact (.vcf)</a>
       </div>
     </div>
   </div>
