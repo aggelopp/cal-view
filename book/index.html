@@ -47,6 +47,11 @@ textarea{min-height:84px;resize:vertical}
 .err{color:#b91c1c;font-size:14px;margin-top:8px}
 .demo{background:#fff7ed;color:#9a3412;border:1px solid #fed7aa;border-radius:10px;padding:8px 10px;font-size:13px;margin-top:10px}
 .hidden{display:none!important}
+.li{display:flex;align-items:center;gap:16px}
+.li img{width:150px;height:150px;flex:none;border-radius:8px;border:1px solid var(--line);image-rendering:pixelated}
+.li a{color:var(--acc);font-weight:600;text-decoration:none;word-break:break-word}
+.li a:hover{text-decoration:underline}
+@media (max-width:420px){.li{flex-direction:column;text-align:center}}
 </style>
 </head>
 <body>
@@ -90,6 +95,14 @@ textarea{min-height:84px;resize:vertical}
     <h2 style="font-size:18px">Request sent</h2>
     <div id="doneText" class="sub"></div>
     <div class="note">The time is held for you while Panagiotis confirms. If it doesn't work, you'll hear back with alternatives.</div>
+  </div>
+  <div class="card" id="linkedin">
+    <h2>Connect on LinkedIn</h2>
+    <div class="li">
+      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAArwAAAK8AQAAAAAlwVHuAAADVElEQVR4nO3dTXLjIBCG4a+nssc3yP1vByfoWQjMj7CSyVRSgry9cNmSeMrFpgs1P+b6lkh/vseVgIGBgYGBgYGBgYGBgYGBgYGBgYEl+RFxfkMK+W79aB950cw9rtcVwMDAwMC/B/Ym4vNqMpOCH2U/s4dU8+BFs7W7AhgYGBh4ezjZEfWnFNxzplM72DN7d583+8l/DAwMDAwM/Ol4u77tSnZ85AguU4j6cLrnel0BDAwMDPy74XY4F9zz2G86sPs3+OsBDAwMDAz8tejGeeE0esvjvPJt9sj82oJdAQwMDAy8OdzkvMth2xHlVeejfLxutl5XAAMDAwNvDpecNx2r5bDj7lHKe377oNl6XQEMDAwMvDncrM87Lb4r6/PmDcOwOGFYtbBeVwADAwMDbw43iSr/jH0erHeHJNclw1MLch4wMDAw8N3gMavVXNbuvuL9YC+0i9B9GuQ8YGBgYOC7wedtVEpCqylw2HusTYGhT5VNMlyvK4CBgYGBN4fLHJYyC1NSOxWzrlWok1ZMIUrHh1SaledKrNcVwMDAwMCbw2MlbnjBmaMb7J2ASD0PGBgYGHgBeDxXYXaGwstXnTlqBZB6HjAwMDDwfeHpsQi1YteO3+KkRfcc9TxgYGBg4BXgcoZCTm31BKGUt9U0e+TUZvZ4niokKR+9YGacJQQMDAwMfGf4qp4X2umZL+t5WYlDZW+9rgAGBgYG3hwe314ObznzI1HjCoX2uZoRqecBAwMDA98Xnu65MhvxtbW7eLFRGTkPGBgYGHgFOPVHpNdvySwX8EJ7bPqpbW22elcAAwMDA+8Hd+cq1FMSgkvN6eglvL9WlqM/JgcKrdcVwMDAwMCbw9MCXr0xbxPmbzmp5wEDAwMDLwJ3KUuSktlw7Xo5upnxbhMYGBgYeA04mXV567kMryzXM3vP9Tz3KOXH6yM//o+BgYGBgYE/HW8fP3IU60whli2nk6kW/0whUs8DBgYGBt4ArjuyqN99RXmc1w7x6ir2HbsCGBgYGHhtuBvnhX7OSv1ZDgpypYdOszpDnAz21usKYGBgYODN4at5m7GftBIm69TjhGLeJjAwMDDwLWF7sRzhfyOt1xXAwMDAwMDAwMDAwMDAwMDAwMDAC8F/AbIvM0+LlBGOAAAAAElFTkSuQmCC" alt="QR code linking to Panagiotis Aggelopoulos on LinkedIn" width="150" height="150">
+      <div><div class="sub">Scan the code or open the profile:</div>
+        <a href="https://www.linkedin.com/in/aggelopoulosp/" target="_blank" rel="noopener">linkedin.com/in/aggelopoulosp</a></div>
+    </div>
   </div>
   <div class="sub" style="text-align:center" id="foot"></div>
 </div>
